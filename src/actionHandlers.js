@@ -4,7 +4,7 @@ import { setKey } from 'cape-lodash'
 import { clear, fieldValue } from 'redux-field'
 import { selectAuthUser } from 'cape-redux-auth'
 import { loginUser } from './handler'
-import { entityUpdate, nextAction, triplePut } from './util'
+import { entitySet, entityUpdate, nextAction, triplePut } from './util'
 
 export function handleAuth(firebase, store) {
   const { auth, googleAuth } = firebase
@@ -25,6 +25,10 @@ export const handleFieldSubmit = cond([
   [isProfileField, handleProfileField],
   [stubTrue, nextAction],
 ])
+export function handleEntityPut(firebase, store, action, next) {
+  next(action)
+  entitySet(firebase, action)
+}
 export function handleTriplePut(firebase, store, action, next) {
   next(action)
   triplePut(firebase, action)

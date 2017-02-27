@@ -10,7 +10,7 @@ export const dispatcher = {
   [SUBMIT]: handleFieldSubmit,
 }
 
-export default function listMiddleware(firebase) {
+export default function fireMiddleware(firebase) {
   return store => next => (action) => {
     if (!action.type) return next(action)
     if (isFunction(dispatcher[action.type])) {

@@ -41,7 +41,7 @@ export const handleChanged = curry(({ dispatch, getState }, typeId, change, key)
   const newVal = ensureIdType(typeId, change, key)
   const oldVal = getEntity(getState(), newVal)
   if (oldVal && newVal.dateModified === oldVal.dateModified) return null
-  return dispatch({ type: ENTITY_PUT, payload: newVal })
+  return dispatch({ type: ENTITY_PUT, payload: newVal, meta: { source: 'firebase' } })
 })
 export const typeLoader = curry(({ entity }, store, typeId) =>
   getChild(entity, typeId).then(handleInit(store, typeId))
