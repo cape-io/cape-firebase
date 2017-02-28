@@ -1,11 +1,16 @@
 {
   "name": "cape-firebase",
-  "version": "1.0.0",
-  "description": "Collection of helper functions and Redux actions/middleware for CAPE projects.",
+  "version": "0.0.1",
+  "description": "Help integrate CAPE redux projects with Firebase.",
   "main": "index.js",
   "repository": "cape-io/cape-firebase",
   "author": "Kai Curry <kai@cape.io>",
   "license": "MIT",
+  "scripts": {
+    "build": "mkdir -p lib && babel ./src -d lib",
+    "prepublish": "npm run build",
+    "test": "babel-tape-runner test/**/*spec.js"
+  },
   "dependencies": {
     "cape-lodash": "^1.11.0",
     "cape-redux-auth": "^4.0.0",
