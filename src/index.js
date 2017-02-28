@@ -1,7 +1,8 @@
 import initializeFirebase from './init'
-import fireMiddleware from './middleware'
+import middleware from './middleware'
 
 export * from './actions'
 export * from './util'
-export const fireMiddleware
+export const fireMiddleware = middleware
+
 export default initializeFirebase
