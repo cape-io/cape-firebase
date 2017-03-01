@@ -1,4 +1,5 @@
-import { createAction, noopAction } from 'cape-redux'
+import { identity, nthArg } from 'lodash'
+import { createAction, createSimpleAction, noopAction } from 'cape-redux'
 
 export const AUTH = 'fire/AUTH'
 export const auth = noopAction(AUTH)
