@@ -27,9 +27,9 @@ export const handleFieldSubmit = cond([
 ])
 export function handleEntityPut(firebase, store, action, next) {
   next(action)
-  entitySet(firebase, action.payload)
+  return entitySet(firebase, action.payload)
 }
 export function handleTriplePut(firebase, store, action, next) {
   next(action)
-  triplePut(firebase, action)
+  return triplePut(firebase, action)
 }
