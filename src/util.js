@@ -62,6 +62,6 @@ export const onChild = curry((actionType, db, id, callback) =>
 )
 export const getWatchChild = onChild('value')
 export const onChildChanged = onChild('child_changed')
-export function nextAction(firebase, store, action, next) {
+export function nextAction({ action, next }) {
   return next(action)
 }
