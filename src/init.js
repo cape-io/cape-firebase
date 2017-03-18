@@ -5,7 +5,7 @@ export const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP
 export function getFileUrl(storageBucket) {
   return fileName => [baseFileUrl, storageBucket, fileName].join('/')
 }
-
+// Create middleware.
 export default function initializeFirebase(config) {
   firebase.initializeApp(config)
 

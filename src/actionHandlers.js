@@ -1,35 +1,41 @@
-import { cond, flow, nthArg, property, stubTrue } from 'lodash'
-import { eq } from 'lodash/fp'
-import { setKey } from 'cape-lodash'
+import { cond, flow, stubTrue } from 'lodash'
+import { get } from 'lodash/fp'
+import { set } from 'cape-lodash'
 import { clear, fieldValue } from 'redux-field'
-import { selectAuthUser } from 'cape-redux-auth'
+import { selectGraph } from 'redux-graph'
+import { simpleSelector } from 'cape-select'
 import { loginUser } from './handler'
 import { entitySet, entityUpdate, nextAction, triplePut } from './util'
 
-export function handleAuth(firebase, store) {
+export function handleAuth({ firebase, store }) {
   const { auth, googleAuth } = firebase
   // console.log(credential)
-  return auth.signInWithPopup(googleAuth).then(flow(property('user'), loginUser(firebase, store)))
+  return auth.signInWithPopup(googleAuth).then(flow(get('user'), loginUser(firebase, store)))
 }
-export function handleLogout({ auth }, action, next) {
+export function handleLogout({ firebase: { auth }, action, next }) {
   return auth.signOut().then(next(action))
 }
-export function handleProfileField(firebase, { dispatch, getState }, action, next) {
+export function handleProfileField({ firebase, action: { dispatch, getState }, action, next }) {
   next(action)
   const state = getState()
-  const entity = setKey(fieldValue('profile', 'id')(state), selectAuthUser(state), action.payload)
-  entityUpdate(firebase, entity).then(() => dispatch(clear('profile')))
+  const entityPath = action.meta.prefix
+  const entity = flow(selectGraph, get(entityPath))
+  const fieldId = fieldValue(entityPath, 'id')(state)
+  const update = set(entity, fieldId, action.payload)
+  entityUpdate(firebase, update)
+  .then(() => dispatch(clear(entityPath)))
 }
-export const isProfileField = flow(nthArg(2), property('meta.prefix[0]'), eq('profile'))
+export const isWatchedEntity = simpleSelector(get('action.meta.prefix[0]'), get('entityIds'), get)
+
 export const handleFieldSubmit = cond([
-  [isProfileField, handleProfileField],
+  [isWatchedEntity, handleProfileField],
   [stubTrue, nextAction],
 ])
-export function handleEntityPut(firebase, store, action, next) {
+export function handleEntityPut({ firebase, action, next }) {
   next(action)
   return entitySet(firebase, action.payload)
 }
-export function handleTriplePut(firebase, store, action, next) {
+export function handleTriplePut({ firebase, action, next }) {
   next(action)
   return triplePut(firebase, action)
 }
