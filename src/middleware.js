@@ -17,7 +17,7 @@ export default function fireMiddleware(firebase, entities) {
   return store => next => (action) => {
     if (!action.type) return next(action)
     if (isFunction(dispatcher[action.type])) {
-      const entityIds = zipObject(entities, fill(entities, true))
+      const entityIds = zipObject(entities, fill(Array(entities.length), true))
       return dispatcher[action.type]({ action, entityIds, firebase, next, store })
     }
     return next(action)

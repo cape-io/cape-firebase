@@ -15,11 +15,11 @@ export function handleAuth({ firebase, store }) {
 export function handleLogout({ firebase: { auth }, action, next }) {
   return auth.signOut().then(next(action))
 }
-export function handleProfileField({ firebase, action: { dispatch, getState }, action, next }) {
+export function handleProfileField({ firebase, store: { dispatch, getState }, action, next }) {
   next(action)
   const state = getState()
   const entityPath = action.meta.prefix
-  const entity = flow(selectGraph, get(entityPath))
+  const entity = flow(selectGraph, get(entityPath))(state)
   const fieldId = fieldValue(entityPath, 'id')(state)
   const update = set(entity, fieldId, action.payload)
   entityUpdate(firebase, update)
