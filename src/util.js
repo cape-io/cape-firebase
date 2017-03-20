@@ -1,4 +1,4 @@
-import { curry, flow, partial } from 'lodash'
+import { curry, fill, flow, partial, zipObject } from 'lodash'
 import { merge, pick } from 'lodash/fp'
 import { rename } from 'cape-lodash'
 import { buildTriple, getKey, insertFields, REFS } from 'redux-graph'
@@ -64,4 +64,8 @@ export const getWatchChild = onChild('value')
 export const onChildChanged = onChild('child_changed')
 export function nextAction({ action, next }) {
   return next(action)
+}
+export function arrayTrueObj(arr) {
+  if (!arr || !arr.length) return {}
+  return zipObject(arr, fill(Array(arr.length), true))
 }

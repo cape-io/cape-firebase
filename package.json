@@ -1,6 +1,6 @@
 {
   "name": "cape-firebase",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Help integrate CAPE redux projects with Firebase.",
   "main": "lib/index",
   "repository": "cape-io/cape-firebase",
