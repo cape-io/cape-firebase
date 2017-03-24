@@ -1,10 +1,6 @@
 import firebase from 'firebase'
+import init from './initUtils'
 
-export const baseFileUrl = 'https://storage.googleapis.com'
-export const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP
-export function getFileUrl(storageBucket) {
-  return fileName => [baseFileUrl, storageBucket, fileName].join('/')
-}
 // Create middleware.
 export default function initializeFirebase(config) {
   firebase.initializeApp(config)
@@ -12,15 +8,8 @@ export default function initializeFirebase(config) {
   const googleAuth = new firebase.auth.GoogleAuthProvider()
   googleAuth.addScope('https://www.googleapis.com/auth/plus.login')
 
-  const db = firebase.database().ref()
-
   return {
-    auth: firebase.auth(),
-    db,
-    entity: db.child('entity'),
-    getFileUrl: getFileUrl(config.storageBucket),
+    ...init(firebase, config),
     googleAuth,
-    storage: firebase.storage().ref(),
-    TIMESTAMP,
   }
 }
