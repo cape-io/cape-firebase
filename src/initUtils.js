@@ -9,6 +9,5 @@ export default function init(fireApp, { storageBucket }) {
     db,
     entity: db.child('entity'),
     getFileUrl: getFileUrl(storageBucket),
-    storage: fireApp.storage().ref(),
   }
 }
