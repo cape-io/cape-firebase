@@ -10,6 +10,7 @@ export default function initializeFirebase(config) {
 
   return {
     ...init(firebase, config),
+    TIMESTAMP: firebase.database.ServerValue.TIMESTAMP,
     googleAuth,
   }
 }

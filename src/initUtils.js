@@ -4,13 +4,11 @@ export function getFileUrl(storageBucket) {
 }
 export default function init(fireApp, { storageBucket }) {
   const db = fireApp.database().ref()
-  const TIMESTAMP = fireApp.database.ServerValue.TIMESTAMP
   return {
     auth: fireApp.auth(),
     db,
     entity: db.child('entity'),
     getFileUrl: getFileUrl(storageBucket),
     storage: fireApp.storage().ref(),
-    TIMESTAMP,
   }
 }
