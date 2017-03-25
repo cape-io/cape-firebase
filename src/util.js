@@ -17,6 +17,15 @@ export const ensureIdType = curry((type, item, id) =>
   (item.id && item.type && item) || { ...item, id, type }
 )
 export function entityDb(db, item) {
+  if (!item) throw new Error('2nd arg must be item object.')
+  if (!item.type) {
+    console.error(item)
+    throw new Error('item must include type.')
+  }
+  if (!item.id) {
+    console.error(item)
+    throw new Error('item must include type.')
+  }
   return db.child(item.type).child(item.id)
 }
 export function entityPath(item, field = '') {
