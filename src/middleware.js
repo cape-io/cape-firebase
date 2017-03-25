@@ -14,12 +14,16 @@ export const dispatcher = {
   [SUBMIT]: handleFieldSubmit,
 }
 
-export default function fireMiddleware(firebase, entities) {
+export default function fireMiddleware(firebase, entities, handlers = {}) {
+  const actions = {
+    ...dispatcher,
+    ...handlers,
+  }
   return store => next => (action) => {
     if (!action.type) return next(action)
-    if (isFunction(dispatcher[action.type])) {
+    if (isFunction(actions[action.type])) {
       const entityIds = arrayTrueObj(entities)
-      return dispatcher[action.type]({ action, entityIds, firebase, next, store })
+      return actions[action.type]({ action, entityIds, firebase, next, store })
     }
     return next(action)
   }

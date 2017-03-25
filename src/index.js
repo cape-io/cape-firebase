@@ -3,6 +3,7 @@ import middleware from './middleware'
 import storeListener from './storeListener'
 import init from './initUtils'
 
+export * from './actionHandlers'
 export * from './actions'
 export * from './util'
 export const fireInit = init
