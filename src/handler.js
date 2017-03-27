@@ -24,6 +24,8 @@ export function handleAuth(firebase, store, fireUser) {
   const { dispatch, getState } = store
   if (fireUser) {
     if (fireUser.isAnonymous) {
+      // Save to redux a person entity.
+      dispatch(entityPut({ type: 'Person', id: fireUser.uid }))
       return dispatch(setUserId(fireUser.uid))
     }
     return loginUser(firebase, store, fireUser)
