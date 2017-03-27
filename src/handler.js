@@ -29,6 +29,8 @@ export function handleAuth(firebase, store, fireUser) {
     return loginUser(firebase, store, fireUser)
   }
   if (isAuthenticated(getState())) return dispatch(logout())
+  // Create anon session?
+  if (firebase.doSignInAnon) return firebase.auth.signInAnonymously()
   return null
 }
 
