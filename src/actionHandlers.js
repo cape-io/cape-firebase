@@ -39,3 +39,7 @@ export function handleTriplePut({ firebase, action, next }) {
   next(action)
   return triplePut(firebase, action)
 }
+export function handleEntityUpdate({ firebase, action, next }) {
+  next(action)
+  return entityUpdate(firebase, action.payload)
+}

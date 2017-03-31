@@ -31,17 +31,36 @@ export function entityDb(db, item) {
 export function entityPath(item, field = '') {
   return `${item.type}/${item.id}/${field}`
 }
-export function entitySet({ entity, TIMESTAMP }, node) {
+
+export function getValue(method, db, id) {
+  return db.child(id)[method]('value').then(res => res.val())
+}
+export const getChild = partial(getValue, 'once')
+export function getDbEntity(firebase, entity) {
+  return getChild(firebase.entity.child(entity.type), entity.id)
+}
+export const onChild = curry((actionType, db, id, callback) =>
+  db.child(id).on(actionType, res => callback(res.val(), res.key))
+)
+export const getWatchChild = onChild('value')
+export const onChildChanged = onChild('child_changed')
+export function nextAction({ action, next }) {
+  return next(action)
+}
+
+export function entitySet(firebase, node) {
+  const { entity, TIMESTAMP } = firebase
   const item = insertFields(node)
   item.dateCreated = TIMESTAMP
   item.dateModified = TIMESTAMP
   return entityDb(entity, item).set(item)
-  .then(() => item)
+  .then(() => getDbEntity(firebase, item))
 }
-export function entityUpdate({ entity, TIMESTAMP }, node) {
+export function entityUpdate(firebase, node) {
+  const { entity, TIMESTAMP } = firebase
   const item = { ...node, dateModified: TIMESTAMP }
   return entityDb(entity, item).update(item)
-  .then(() => item)
+  .then(() => getDbEntity(firebase, item))
 }
 export function triplePut({ entity, TIMESTAMP }, { payload, meta }) {
   const triple = buildTriple(payload)
@@ -59,21 +78,7 @@ export function triplePut({ entity, TIMESTAMP }, { payload, meta }) {
   return entity.update(updateObj)
   .then(() => triple)
 }
-export function getValue(method, db, id) {
-  return db.child(id)[method]('value').then(res => res.val())
-}
-export const getChild = partial(getValue, 'once')
-export function getDbEntity(firebase, entity) {
-  return getChild(firebase.entity.child(entity.type), entity.id)
-}
-export const onChild = curry((actionType, db, id, callback) =>
-  db.child(id).on(actionType, res => callback(res.val(), res.key))
-)
-export const getWatchChild = onChild('value')
-export const onChildChanged = onChild('child_changed')
-export function nextAction({ action, next }) {
-  return next(action)
-}
+
 export function arrayTrueObj(arr) {
   if (!arr || !arr.length) return {}
   return zipObject(arr, fill(Array(arr.length), true))

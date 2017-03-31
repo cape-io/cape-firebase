@@ -10,6 +10,9 @@ export const logout = noopAction(LOGOUT)
 export const SAVE_ENTITY = 'fire/SAVE_ENTITY'
 export const saveEntity = createSimpleAction(SAVE_ENTITY, identity, nthArg(1))
 
+export const UPDATE_ENTITY = 'fire/UPDATE_ENTITY'
+export const updateEntity = createSimpleAction(UPDATE_ENTITY, identity, nthArg(1))
+
 export const SAVE_TRIPLE = 'fire/SAVE_TRIPLE'
 export const saveTriple = createSimpleAction(SAVE_TRIPLE, identity, nthArg(1))
 
