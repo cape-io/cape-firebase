@@ -62,7 +62,9 @@ export function entityUpdate(firebase, node) {
   return entityDb(entity, item).update(item)
   .then(() => getDbEntity(firebase, item))
 }
+
 export function triplePut({ entity, TIMESTAMP }, { payload, meta }) {
+  // Payload needs to be a have triple style object props.
   const triple = buildTriple(payload)
   const { subject, predicate, object } = triple
   const path = `${REFS}/${predicate}/${getKey(object)}`
@@ -70,7 +72,8 @@ export function triplePut({ entity, TIMESTAMP }, { payload, meta }) {
     [entityPath(subject, path)]: object,
     [entityPath(subject, 'dateModified')]: TIMESTAMP,
   }
-  if (meta.previousSubject) {
+  // Allow a previously linked subject to change.
+  if (meta && meta.previousSubject) {
     const prevSubj = meta.previousSubject
     updateObj[entityPath(prevSubj, path)] = null
     updateObj[entityPath(prevSubj, 'dateModified')] = TIMESTAMP
