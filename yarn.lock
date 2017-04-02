@@ -2171,7 +2171,18 @@ redux-field@^4.4.1:
     reselect "^2.5.4"
     seamless-immutable "^6.1.3"
 
-redux-graph@^2.10.0, redux-graph@^2.7.0, redux-graph@^2.9.0:
+redux-graph@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/redux-graph/-/redux-graph-2.11.0.tgz#432aae2126206d2318b9467f40fa4f3597fca914"
+  dependencies:
+    cape-lodash "^1.11.0"
+    cape-redux "^3.1.0"
+    cape-select "^2.4.0"
+    lodash "^4.17.4"
+    redux "^3.6.0"
+    reselect "^2.5.4"
+
+redux-graph@^2.7.0, redux-graph@^2.9.0:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/redux-graph/-/redux-graph-2.10.0.tgz#36906793aa31e676fd117a3a8d0975dd210ff665"
   dependencies:
