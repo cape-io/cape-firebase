@@ -67,7 +67,10 @@ export function getTriplePath(subject, predicate, object, single) {
 }
 export function tripleDelete({ entity, TIMESTAMP }, payload) {
   const { subject, predicate, object, single } = payload
-  return entity.child(getTriplePath(subject, predicate, object, single)).set(null)
+  return entity.update({
+    [getTriplePath(subject, predicate, object, single)]: null,
+    [entityPath(subject, 'dateModified')]: TIMESTAMP,
+  })
 }
 // Use action instead of calling this directly.
 // Save refs to subject.
