@@ -5,6 +5,12 @@ import { buildTriple } from 'redux-graph'
 export const AUTH = 'fire/AUTH'
 export const auth = noopAction(AUTH)
 
+export const DELETE_ENTITY = 'fire/DELETE_ENTITY'
+export const deleteEntity = createSimpleAction(DELETE_ENTITY, identity, nthArg(1))
+
+export const DELETE_TRIPLE = 'fire/DELETE_TRIPLE'
+export const deleteTriple = createSimpleAction(DELETE_TRIPLE, identity, nthArg(1))
+
 export const LOGOUT = 'fire/LOGOUT'
 export const logout = noopAction(LOGOUT)
 

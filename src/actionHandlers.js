@@ -5,7 +5,7 @@ import { clear, fieldValue } from 'redux-field'
 import { selectGraph } from 'redux-graph'
 import { simpleSelector } from 'cape-select'
 import { loginUser } from './handler'
-import { entitySet, entityUpdate, nextAction, triplePut } from './util'
+import { entityUpdate, nextAction, triplePut } from './util'
 
 export function handleAuth({ firebase, store }) {
   const { auth, googleAuth } = firebase
@@ -31,14 +31,13 @@ export const handleFieldSubmit = cond([
   [isWatchedEntity, handleProfileField],
   [stubTrue, nextAction],
 ])
-export function handleEntityPut({ firebase, action, next }) {
-  next(action)
-  return entitySet(firebase, action.payload)
+export function sendPayload(handler) {
+  return ({ action, firebase, next }) => {
+    next(action)
+    return handler(firebase, action.payload)
+  }
 }
-export function handleEntityUpdate({ firebase, action, next }) {
-  next(action)
-  return entityUpdate(firebase, action.payload)
-}
+
 export function handleTriplePut({ firebase, action, next }) {
   next(action)
   return triplePut(firebase, action)

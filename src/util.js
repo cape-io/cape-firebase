@@ -45,7 +45,9 @@ export const onChildChanged = onChild('child_changed')
 export function nextAction({ action, next }) {
   return next(action)
 }
-
+export function entityDelete(firebase, item) {
+  return entityDb(firebase.entity, item).set(null)
+}
 export function entitySet(firebase, node) {
   const { entity, TIMESTAMP } = firebase
   const item = insertFields(node)
@@ -63,7 +65,10 @@ export function entityUpdate(firebase, node) {
 export function getTriplePath(subject, predicate, object, single) {
   return fullRefPath(subject, predicate, single ? null : object).join('/')
 }
-
+export function tripleDelete({ entity, TIMESTAMP }, payload) {
+  const { subject, predicate, object, single } = payload
+  return entity.child(getTriplePath(subject, predicate, object, single)).set(null)
+}
 // Use action instead of calling this directly.
 // Save refs to subject.
 export function triplePut({ entity, TIMESTAMP }, { payload, meta }) {

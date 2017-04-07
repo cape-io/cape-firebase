@@ -1,18 +1,21 @@
 import { isFunction } from 'lodash'
 import { SUBMIT } from 'redux-field'
-import { AUTH, LOGOUT, SAVE_ENTITY, SAVE_TRIPLE, UPDATE_ENTITY } from './actions'
+import { AUTH, DELETE_ENTITY, DELETE_TRIPLE, LOGOUT, SAVE_ENTITY, SAVE_TRIPLE, UPDATE_ENTITY } from './actions'
 import {
-  handleAuth, handleEntityUpdate, handleFieldSubmit, handleLogout, handleEntityPut, handleTriplePut,
+  handleAuth, handleFieldSubmit,
+  handleLogout, handleTriplePut, sendPayload,
 } from './actionHandlers'
-import { arrayTrueObj } from './util'
+import { arrayTrueObj, entitySet, entityDelete, entityUpdate, tripleDelete } from './util'
 
 export const dispatcher = {
   [AUTH]: handleAuth,
+  [DELETE_ENTITY]: sendPayload(entityDelete),
+  [DELETE_TRIPLE]: sendPayload(tripleDelete),
   [LOGOUT]: handleLogout,
-  [SAVE_ENTITY]: handleEntityPut,
+  [SAVE_ENTITY]: sendPayload(entitySet),
   [SAVE_TRIPLE]: handleTriplePut,
   [SUBMIT]: handleFieldSubmit,
-  [UPDATE_ENTITY]: handleEntityUpdate,
+  [UPDATE_ENTITY]: sendPayload(entityUpdate),
 }
 
 export default function fireMiddleware(firebase, entities, handlers = {}) {
