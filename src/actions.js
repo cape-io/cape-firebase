@@ -1,12 +1,12 @@
 import { identity, nthArg } from 'lodash'
 import { createAction, createSimpleAction, noopAction } from 'cape-redux'
-import { buildTriple } from 'redux-graph'
+import { buildTriple, requireIdType } from 'redux-graph'
 
 export const AUTH = 'fire/AUTH'
 export const auth = noopAction(AUTH)
 
 export const DELETE_ENTITY = 'fire/DELETE_ENTITY'
-export const deleteEntity = createSimpleAction(DELETE_ENTITY, identity, nthArg(1))
+export const deleteEntity = createSimpleAction(DELETE_ENTITY, requireIdType, nthArg(1))
 
 export const DELETE_TRIPLE = 'fire/DELETE_TRIPLE'
 export const deleteTriple = createSimpleAction(DELETE_TRIPLE, identity, nthArg(1))
