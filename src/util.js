@@ -42,6 +42,8 @@ export const onChild = curry((actionType, db, id, callback) =>
 )
 export const getWatchChild = onChild('value')
 export const onChildChanged = onChild('child_changed')
+export const onChildRemoved = onChild('child_removed')
+
 export function nextAction({ action, next }) {
   return next(action)
 }

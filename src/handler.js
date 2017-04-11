@@ -1,10 +1,10 @@
 import { curry, isEmpty, map } from 'lodash'
-import { ENTITY_PUT, entityPut, ENTITY_PUTALL, getEntity } from 'redux-graph'
+import { ENTITY_PUT, entityDel, entityPut, ENTITY_PUTALL, getEntity } from 'redux-graph'
 import { replaceDb } from 'cape-redux-reducer'
 import { isAuthenticated, login, logout, setUserId } from 'cape-redux-auth'
 import {
   authUsr, ensureIdType, entitySet,
-  getChild, getDbEntity, getWatchChild, onChildChanged, userEntity,
+  getChild, getDbEntity, getWatchChild, onChildChanged, onChildRemoved, userEntity,
 } from './util'
 
 export const loginUser = curry((firebase, { dispatch }, user) => {
@@ -47,15 +47,24 @@ export const handleChanged = curry(({ dispatch, getState }, typeId, change, key)
   if (oldVal && newVal.dateModified === oldVal.dateModified) return null
   return dispatch({ type: ENTITY_PUT, payload: newVal, meta: { source: 'firebase' } })
 })
+export const handleRemoved = curry(({ dispatch, getState }, typeId, value, key) =>
+  dispatch(entityDel(ensureIdType(typeId, value, key)))
+)
 export const typeLoader = curry(({ entity }, store, typeId) =>
   getChild(entity, typeId).then(handleInit(store, typeId))
 )
 export const typeListener = curry(({ entity }, store, typeId) =>
-  onChildChanged(entity, typeId, handleChanged(store, typeId))
+  Promise.all([
+    onChildChanged(entity, typeId, handleChanged(store, typeId)),
+    onChildRemoved(entity, typeId, handleRemoved(store, typeId)),
+  ])
 )
 // Load init state and then listen for changes.
 export const typeLoadWatch = curry((firebase, store, typeId) =>
-  Promise.all([typeLoader(firebase, store, typeId), typeListener(firebase, store, typeId)])
+  Promise.all([
+    typeLoader(firebase, store, typeId),
+    typeListener(firebase, store, typeId),
+  ])
 )
 export const dbChange = curry(({ dispatch }, result) => dispatch(replaceDb(result)))
 export function dbChanges({ db }, store) {
