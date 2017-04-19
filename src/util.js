@@ -1,4 +1,4 @@
-import { curry, fill, flow, get, partial, zipObject } from 'lodash'
+import { curry, flow, get, partial } from 'lodash'
 import { join, merge, pick } from 'lodash/fp'
 import { rename } from 'cape-lodash'
 import { fullRefPath, getPath, insertFields } from 'redux-graph'
@@ -58,6 +58,7 @@ export function entitySet(firebase, node) {
   return entityDb(entity, item).set(item)
   .then(() => getDbEntity(firebase, item))
 }
+// Same as entitySet but does not create dateCreated field.
 export function entityUpdate(firebase, node) {
   const { entity, TIMESTAMP } = firebase
   const item = { ...node, dateModified: TIMESTAMP }
@@ -91,9 +92,4 @@ export function triplePut({ entity, TIMESTAMP }, { payload, meta }) {
   }
   return entity.update(updateObj)
   .then(() => payload)
-}
-
-export function arrayTrueObj(arr) {
-  if (!arr || !arr.length) return {}
-  return zipObject(arr, fill(Array(arr.length), true))
 }

@@ -1,12 +1,10 @@
 import initializeFirebase from './init'
-import middleware from './middleware'
-import storeListener from './storeListener'
-import init from './initUtils'
 
 export * from './actionHandlers'
 export * from './actions'
 export * from './util'
-export const fireInit = init
-export const fireMiddleware = middleware
-export const reduxFirebase = storeListener
+export { default as fireInit } from './initUtils'
+export { default as middleware } from './middleware'
+export { default as reducer } from './reducer'
+export { default as reduxFirebase } from './storeListener'
 export default initializeFirebase
