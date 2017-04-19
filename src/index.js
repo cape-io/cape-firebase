@@ -2,6 +2,7 @@ import initializeFirebase from './init'
 
 export * from './actionHandlers'
 export * from './actions'
+export * from './select'
 export * from './util'
 export { default as fireInit } from './initUtils'
 export { default as middleware } from './middleware'
