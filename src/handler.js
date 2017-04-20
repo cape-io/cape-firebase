@@ -1,11 +1,16 @@
 import { curry, isEmpty, map } from 'lodash'
 import { ENTITY_PUT, entityDel, entityPut, ENTITY_PUTALL, getEntity } from 'redux-graph'
-import { replaceDb } from 'cape-redux-reducer'
 import { isAuthenticated, login, logout, setUserId } from 'cape-redux-auth'
 import {
   authUsr, ensureIdType, entitySet,
   getChild, getDbEntity, getWatchChild, onChildChanged, onChildRemoved, userEntity,
 } from './util'
+
+// @TODO fix cape-redux-reducer to split out db stuff.
+// Probably also just want to change children instead of entire thing?
+function replaceDb(payload) {
+  return { type: 'db/REPLACE_DB', payload }
+}
 
 export const loginUser = curry((firebase, { dispatch }, user) => {
   // console.log(pickBy(user, isString))
