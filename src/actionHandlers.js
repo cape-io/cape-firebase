@@ -1,9 +1,10 @@
-import { cond, flow, stubTrue } from 'lodash'
+import { cond, flow, partial, pick, stubTrue } from 'lodash'
 import { get } from 'lodash/fp'
 import { set } from 'cape-lodash'
 import { clear, fieldValue } from 'redux-field'
 import { selectGraph } from 'redux-graph'
 import { simpleSelector } from 'cape-select'
+import { updateEntityFields } from './actions'
 import { loginUser } from './handler'
 import { entityUpdate, nextAction, triplePut } from './util'
 
@@ -41,4 +42,23 @@ export function sendPayload(handler) {
 export function handleTriplePut({ firebase, action, next }) {
   next(action)
   return triplePut(firebase, action)
+}
+// Update entity progress.
+export const onFileProgress = (dispatch, entity) => flow(
+  pick('bytesTransferred'),
+  partial(updateEntityFields, entity),
+  dispatch
+)
+
+export function handleFileUpload({ firebase, action, store }) {
+  console.log('FILE UPLOAD', action)
+  const { file, entity } = action
+  const uploadTask = firebase.storage.child(entity.fileName).put(file)
+  return new Promise((accept, reject) => {
+    uploadTask.on('state_changed',
+      onFileProgress(store.dispatch, entity),
+      reject,
+      partial(accept, store)
+    )
+  })
 }

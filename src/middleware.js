@@ -1,10 +1,10 @@
 import { isFunction } from 'lodash'
 import { SUBMIT } from 'redux-field'
 import {
-  AUTH, DELETE_ENTITY, DELETE_TRIPLE, LOGOUT, SAVE_ENTITY, SAVE_TRIPLE, UPDATE_ENTITY,
+  AUTH, DELETE_ENTITY, DELETE_TRIPLE, LOGOUT, SAVE_ENTITY, SAVE_TRIPLE, UPDATE_ENTITY, UPLOAD_FILE,
 } from './actions'
 import {
-  handleAuth, handleFieldSubmit,
+  handleAuth, handleFieldSubmit, handleFileUpload,
   handleLogout, handleTriplePut, sendPayload,
 } from './actionHandlers'
 import { entitySet, entityDelete, entityUpdate, tripleDelete } from './util'
@@ -19,6 +19,7 @@ export const dispatcher = {
   [SAVE_TRIPLE]: handleTriplePut,
   [SUBMIT]: handleFieldSubmit,
   [UPDATE_ENTITY]: sendPayload(entityUpdate),
+  [UPLOAD_FILE]: handleFileUpload,
 }
 
 export default function fireMiddleware(firebase, handlers = {}) {
