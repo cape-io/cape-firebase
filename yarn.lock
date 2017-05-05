@@ -828,34 +828,6 @@ cape-redux-auth@^4.0.0:
     redux-graph "^2.7.0"
     redux-history-sync "^3.1.0"
 
-cape-redux-collection@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/cape-redux-collection/-/cape-redux-collection-4.0.1.tgz#45c5561eb4d52737447c4d2b58a90eadf9044d99"
-  dependencies:
-    cape-lodash "^1.7.0"
-    cape-redux "^2.2.1"
-    cape-redux-auth "^4.0.0"
-    cape-select "^2.3.1"
-    lodash "^4.17.2"
-    redux-graph "^2.7.0"
-    redux-history-sync "^3.1.0"
-    reselect "^2.5.4"
-
-cape-redux-reducer@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/cape-redux-reducer/-/cape-redux-reducer-3.6.0.tgz#f6c4a5df7ec454b6073b395a6281830d897c0589"
-  dependencies:
-    cape-lodash "^1.10.0"
-    cape-redux "^3.1.0"
-    cape-redux-auth "^4.0.0"
-    cape-redux-collection "^4.0.1"
-    lodash "^4.17.2"
-    redux-field "^4.4.1"
-    redux-graph "^2.9.0"
-    redux-history-sync "^3.1.0"
-    redux-thunk "^2.1.0"
-    redux-windowsize "^1.3.1"
-
 cape-redux@^2.2.1:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/cape-redux/-/cape-redux-2.3.0.tgz#2784680e16df774ba728c4fcca8b3751d201bd57"
@@ -2171,20 +2143,9 @@ redux-field@^4.4.1:
     reselect "^2.5.4"
     seamless-immutable "^6.1.3"
 
-redux-graph@^2.11.0:
+redux-graph@^2.11.0, redux-graph@^2.7.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/redux-graph/-/redux-graph-2.11.0.tgz#432aae2126206d2318b9467f40fa4f3597fca914"
-  dependencies:
-    cape-lodash "^1.11.0"
-    cape-redux "^3.1.0"
-    cape-select "^2.4.0"
-    lodash "^4.17.4"
-    redux "^3.6.0"
-    reselect "^2.5.4"
-
-redux-graph@^2.7.0, redux-graph@^2.9.0:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/redux-graph/-/redux-graph-2.10.0.tgz#36906793aa31e676fd117a3a8d0975dd210ff665"
   dependencies:
     cape-lodash "^1.11.0"
     cape-redux "^3.1.0"
@@ -2201,19 +2162,6 @@ redux-history-sync@^3.1.0:
     classnames "^2.2.5"
     lodash "^4.17.2"
     redux "^3.6.0"
-
-redux-thunk@^2.1.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
-
-redux-windowsize@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/redux-windowsize/-/redux-windowsize-1.3.1.tgz#0a942a0b161b42ecff6afa8f8cae2bb82fa9132c"
-  dependencies:
-    cape-lodash "^1.8.0"
-    cape-redux "^3.1.0"
-    lodash "^4.17.2"
-    reselect "^2.5.4"
 
 redux@^3.6.0:
   version "3.6.0"

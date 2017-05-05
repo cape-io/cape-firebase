@@ -20,7 +20,8 @@ export function handleProfileField({ firebase, store: { dispatch, getState }, ac
   next(action)
   const state = getState()
   const entityPath = action.meta.prefix
-  const entity = flow(selectGraph, get(entityPath))(state)
+  // const entity = flow(selectGraph, get(entityPath))(state)
+  const entity = { type: entityPath[0], id: entityPath[1] }
   const fieldId = fieldValue(entityPath, 'id')(state)
   const update = set(entity, fieldId, action.payload)
   entityUpdate(firebase, update)
