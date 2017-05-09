@@ -1,6 +1,6 @@
 {
   "name": "cape-firebase",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Help integrate CAPE redux projects with Firebase.",
   "main": "lib/index",
   "repository": "cape-io/cape-firebase",
@@ -18,7 +18,7 @@
     "cape-select": "^2.4.0",
     "firebase": "^3.6.9",
     "lodash": "^4.17.4",
-    "redux-field": "^4.4.1",
+    "redux-field": "^5.0.0",
     "redux-graph": "^2.11.0"
   },
   "devDependencies": {
